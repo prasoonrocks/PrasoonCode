@@ -43,51 +43,21 @@ public class XMLOrderFileReader implements IOrderFileReader{
 				throw new IllegalArgumentException("File cannot be null");
 			}
 
+			// get branch details
 			NodeList branchList = document.getElementsByTagName("branch");
 			NodeList branchDetails = getChildOrderNodes(branchList);
 			int lengthBranchDetails = 0;
 			if(null!=branchDetails){
 				lengthBranchDetails= branchDetails.getLength();
 			}
-			for(int j = 0; j<lengthBranchDetails; j++){
-				Node n1 = branchDetails.item(j);
-				if(n1.getNodeType()==Node.ELEMENT_NODE){
-					Element br = (Element) n1;
-					if("totalcollection".equals(br.getTagName())){
-						totalcollection=Double.parseDouble(br.getTextContent());
-						valuesMap.put("totalcollection", totalcollection);
-					}
-					if("location".equals(br.getTagName())){
-						location=br.getTextContent();
-						valuesMap.put("location", location);
-					}
-					if("locationid".equals(br.getTagName())){
-						locationid=br.getTextContent();
-						valuesMap.put("locationid", locationid);
-					}
-				}
-			}
+			getValuesByElement(lengthBranchDetails, branchDetails, valuesMap);
 
+			// get orders details
 			NodeList orderList = document.getElementsByTagName("orders");
 			NodeList orderDetails = getChildOrderNodes(orderList);
 			NodeList orders = getChildOrderNodes(orderDetails);
-			int lengthOrderDetails = 0;
-			if(null!=orderDetails){
-				lengthOrderDetails= orderDetails.getLength();
-			}
-			for(int k = 0; k<lengthOrderDetails; k++){
-				Node o1 = null;
-				if(null!=orders){
-					o1 = orders.item(k);}
-				if(null!=o1 && o1.getNodeType()==Node.ELEMENT_NODE){
+			getOrderValuesByElements(orderDetails, orders, valuesMap);
 
-					Element or = (Element) o1;
-					if("billamount".equals(or.getTagName())){
-						totalOrdersCollection+=Double.parseDouble(or.getTextContent());
-					}
-					valuesMap.put("totalOrdersCollection", totalOrdersCollection);
-				}
-			}
 
 		} catch (ParserConfigurationException e) {
 			logger.error(" ParserConfigurationException occured in getValuesFromFile method : " + e);
@@ -112,5 +82,46 @@ public class XMLOrderFileReader implements IOrderFileReader{
 			}
 		}
 		return null;
+	}
+	
+	private void getOrderValuesByElements(NodeList orderDetails, NodeList orders, Map<String,Object> valuesMap){
+		int lengthOrderDetails = 0;
+		if(null!=orderDetails){
+			lengthOrderDetails= orderDetails.getLength();
+		}
+		for(int k = 0; k<lengthOrderDetails; k++){
+			Node o1 = null;
+			if(null!=orders){
+				o1 = orders.item(k);}
+			if(null!=o1 && o1.getNodeType()==Node.ELEMENT_NODE){
+
+				Element or = (Element) o1;
+				if("billamount".equals(or.getTagName())){
+					totalOrdersCollection+=Double.parseDouble(or.getTextContent());
+				}
+				valuesMap.put("totalOrdersCollection", totalOrdersCollection);
+			}
+		}
+	}
+	
+	private void getValuesByElement(int lengthBranchDetails, NodeList branchDetails, Map<String,Object> valuesMap){
+		for(int j = 0; j<lengthBranchDetails; j++){
+			Node n1 = branchDetails.item(j);
+			if(n1.getNodeType()==Node.ELEMENT_NODE){
+				Element br = (Element) n1;
+				if("totalcollection".equals(br.getTagName())){
+					totalcollection=Double.parseDouble(br.getTextContent());
+					valuesMap.put("totalcollection", totalcollection);
+				}
+				if("location".equals(br.getTagName())){
+					location=br.getTextContent();
+					valuesMap.put("location", location);
+				}
+				if("locationid".equals(br.getTagName())){
+					locationid=br.getTextContent();
+					valuesMap.put("locationid", locationid);
+				}
+			}
+		}
 	}
 }
