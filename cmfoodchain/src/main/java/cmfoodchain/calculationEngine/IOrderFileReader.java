@@ -1,9 +1,9 @@
-package main.java.cmfoodchain.calculationEngine;
+package main.java.cmfoodchain.calculationengine;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface IOrderFileReader {
 	
-	public HashMap<String,Object> getValuesFromFile();
+	public Map<String, Object> getValuesFromFile();
 
 }

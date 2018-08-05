@@ -1,4 +1,4 @@
-package main.java.cmfoodchain.calculationEngine;
+package main.java.cmfoodchain.calculationengine;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,12 +9,14 @@ import org.apache.log4j.Logger;
 
 public class CalculationEngine {
 	
-	final static Logger logger = Logger.getLogger(CalculationEngine.class);
+	static final Logger logger = Logger.getLogger(CalculationEngine.class);
 
-	File InputFile, match, mismatch;
+	File inputFile;
+	File match;
+	File mismatch;
 
 	public CalculationEngine(File inputFile, File match, File mismatch) {
-		this.InputFile = inputFile;
+		this.inputFile = inputFile;
 		this.match = match;
 		this.mismatch = mismatch;
 	}
@@ -25,7 +27,6 @@ public class CalculationEngine {
 	   try
 	   {
 	      fileType = Files.probeContentType(file.toPath());
-	      System.out.println(fileType);
 	   }
 	   catch (IOException e)
 	   {
@@ -41,18 +42,18 @@ public class CalculationEngine {
 		HashMap<String,Object> valuesMap = null;
 		
 		// determine file type
-		String inputFileType = identifyFileTypeUsingFilesProbeContentType(this.InputFile);
+		String inputFileType = identifyFileTypeUsingFilesProbeContentType(this.inputFile);
 		
 		// calculate values
 		if("text/xml".equals(inputFileType)){
-			System.out.println("xml");
-			orderReader = new XMLOrderFileReader(InputFile);
-			valuesMap = orderReader.getValuesFromFile();
+			logger.info(" XML format detected ");
+			orderReader = new XMLOrderFileReader(inputFile);
+			valuesMap = (HashMap<String, Object>) orderReader.getValuesFromFile();
 		}
 		else{
-			System.out.println(" json");
-			orderReader = new JSONOrderFileReader(InputFile);
-			valuesMap = orderReader.getValuesFromFile();
+			logger.info(" JSON format detected ");
+			orderReader = new JSONOrderFileReader(inputFile);
+			valuesMap = (HashMap<String, Object>) orderReader.getValuesFromFile();
 		}
 		
 		// Initialize writer

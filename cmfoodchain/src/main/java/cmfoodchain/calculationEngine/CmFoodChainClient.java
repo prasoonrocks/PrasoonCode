@@ -1,18 +1,14 @@
-package main.java.cmfoodchain.calculationEngine;
+package main.java.cmfoodchain.calculationengine;
 
 import java.io.File;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
-import org.xml.sax.SAXException;
 
 public class CmFoodChainClient {
 
-	final static Logger logger = Logger.getLogger(CmFoodChainClient.class);
+	static final  Logger logger = Logger.getLogger(CmFoodChainClient.class);
 
-	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+	public static void main(String[] args) {
 		
 		// trying with XML File
 		CalculationEngine ce = new CalculationEngine(new File("file.xml"), new File("match.json") , new File("mismatch.json"));

@@ -1,8 +1,9 @@
-package main.java.cmfoodchain.calculationEngine;
+package main.java.cmfoodchain.calculationengine;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,26 +18,26 @@ import org.xml.sax.SAXException;
 
 public class XMLOrderFileReader implements IOrderFileReader{
 	
-	final static Logger logger = Logger.getLogger(XMLOrderFileReader.class);
-	File XMLOrderFile;
+	static final Logger logger = Logger.getLogger(XMLOrderFileReader.class);
+	File xMLOrderFile;
 	double totalcollection = 0.0;
 	double totalOrdersCollection = 0.0;
 	String location = null;
 	String locationid = null;
 	
 	public XMLOrderFileReader(File xMLOrderFile){
-		this.XMLOrderFile = xMLOrderFile;
+		this.xMLOrderFile = xMLOrderFile;
 	}
 
-	public HashMap<String,Object> getValuesFromFile(){
+	public Map<String,Object> getValuesFromFile(){
 		HashMap<String,Object> valuesMap = new HashMap<>();
 		DocumentBuilderFactory builderFactory =	DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
 		Document document = null;
 		try {
 			builder = builderFactory.newDocumentBuilder();
-			if(null!=this.XMLOrderFile){
-			document= builder.parse(this.XMLOrderFile);
+			if(null!=this.xMLOrderFile){
+			document= builder.parse(this.xMLOrderFile);
 			}
 			else{
 				throw new IllegalArgumentException("File cannot be null");
@@ -57,11 +58,11 @@ public class XMLOrderFileReader implements IOrderFileReader{
 								valuesMap.put("totalcollection", totalcollection);
 							}
 							if("location".equals(br.getTagName())){
-								location=br.getTextContent().toString();
+								location=br.getTextContent();
 								valuesMap.put("location", location);
 							}
 							if("locationid".equals(br.getTagName())){
-								locationid=br.getTextContent().toString();
+								locationid=br.getTextContent();
 								valuesMap.put("locationid", locationid);
 							}
 						}

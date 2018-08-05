@@ -1,4 +1,4 @@
-package main.java.cmfoodchain.calculationEngine;
+package main.java.cmfoodchain.calculationengine;
 
 import java.io.File;
 

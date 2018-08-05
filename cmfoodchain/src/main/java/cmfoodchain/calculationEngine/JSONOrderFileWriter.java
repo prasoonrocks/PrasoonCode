@@ -1,9 +1,10 @@
-package main.java.cmfoodchain.calculationEngine;
+package main.java.cmfoodchain.calculationengine;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -11,12 +12,12 @@ import org.json.JSONObject;
 
 public class JSONOrderFileWriter implements IOrderFileWriter{
 
-	final static Logger logger = Logger.getLogger(JSONOrderFileWriter.class);
+	static final Logger logger = Logger.getLogger(JSONOrderFileWriter.class);
 
 	HashMap<String,Object> valuesMap = null;
 
-	public JSONOrderFileWriter(HashMap<String,Object> valuesMap) {
-		this.valuesMap = valuesMap;
+	public JSONOrderFileWriter(Map<String,Object> valuesMap) {
+		this.valuesMap = (HashMap<String, Object>) valuesMap;
 	}
 
 	public void writeToFile(File file){
