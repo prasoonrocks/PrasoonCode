@@ -1,16 +1,19 @@
 # PrasoonCode
 Section 1
-	Name: First Name Last Name
-	Years of Experience: X years Y months
+	Name: Prasoon Kumar Agrawal
+	Years of Experience: 7 years 6 months
 
 Section 2: 
-	Build IDE: Eclipse Java EE IDE (Version: Oxygen.3a Release (4.7.3a))
-	JDK Version: java version "1.8.0_162"
+	Build IDE: Eclipse Java EE IDE (Version: Neon.3 Release (4.6.3))
+	JDK Version: java version "1.8.0_181"
 
 Section 3 
 a)	Sonar lint / EclEmma scan Snapshot 
+	- Not installed Sonar, will update project later with screenshot of sonarQube coverage
 b)	Final Output Snapshot 
+	-
 c)	Junit Coverage Snapshot
+	-
 Note: (You can link directly to the raw version of an image from your image folder. Hence from section 1.1 if your GIT Link is : https://github.com/nescafe2018/intrvw_stind , then you can have the following text in your readme ![SonarLint] (https://github.com/nescafe2018/intrvw_stind /<Link of you image) )
 
 Section 4 
