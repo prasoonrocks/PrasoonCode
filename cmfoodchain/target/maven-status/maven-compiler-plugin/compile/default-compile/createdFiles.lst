@@ -1,0 +1,7 @@
+main\java\cmfoodchain\calculationEngine\CalculationEngine.class
+main\java\cmfoodchain\calculationEngine\IOrderFileReader.class
+main\java\cmfoodchain\calculationEngine\JSONOrderFileReader.class
+main\java\cmfoodchain\calculationEngine\IOrderFileWriter.class
+main\java\cmfoodchain\calculationEngine\JSONOrderFileWriter.class
+main\java\cmfoodchain\calculationEngine\CmFoodChainClient.class
+main\java\cmfoodchain\calculationEngine\XMLOrderFileReader.class

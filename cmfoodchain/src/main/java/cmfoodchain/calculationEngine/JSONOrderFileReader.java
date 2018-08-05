@@ -1,0 +1,73 @@
+package main.java.cmfoodchain.calculationEngine;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class JSONOrderFileReader implements IOrderFileReader{
+	
+	final static Logger logger = Logger.getLogger(JSONOrderFileReader.class);
+	File JSONOrderFile;
+	double totalcollection = 0.0;
+	double totalOrdersCollection = 0.0;
+	String location = null;
+	String locationid = null;
+	
+	public JSONOrderFileReader(File jSONOrderFile) {
+		this.JSONOrderFile = jSONOrderFile;
+	}
+
+	public HashMap<String,Object> getValuesFromFile(){
+		HashMap<String,Object> valuesMap = new HashMap<>();
+		JSONParser parser = new JSONParser();
+		try {
+			JSONObject JsonFileData = null;
+			if(null!=this.JSONOrderFile){
+				JsonFileData = (JSONObject) parser.parse(new FileReader(JSONOrderFile));
+			}
+			else{
+				throw new IllegalArgumentException("File cannot be null");
+			}
+
+			JSONObject cmfoodchain = (JSONObject) JsonFileData.get("cmfoodchain");
+			
+			// get branch details
+			JSONObject branch = (JSONObject) cmfoodchain.get("branch");
+			String location = (String) branch.get("location");
+			valuesMap.put("location", location);
+			String totalcollection = (String) branch.get("totalcollection");
+			valuesMap.put("totalcollection", totalcollection);
+			String locationid = (String) branch.get("locationid");
+			valuesMap.put("locationid", locationid);
+			
+			// get order details
+			JSONObject orders = (JSONObject) cmfoodchain.get("orders");
+			JSONArray orderdetails = (JSONArray) orders.get("orderdetail");
+			for(Object o : orderdetails){
+				JSONObject order = (JSONObject) o;
+				double billamount = Double.parseDouble((String) order.get("billamount"));
+				totalOrdersCollection+= billamount;
+			}
+			valuesMap.put("totalOrdersCollection", totalOrdersCollection);
+			
+			
+		} catch (FileNotFoundException e) {
+			logger.error(" FileNotFoundException occured in getValuesFromFile method : " + e);
+		} catch (IOException e) {
+			logger.error(" IOException occured in getValuesFromFile method : " + e);
+		} catch (ParseException e) {
+			logger.error(" ParseException occured in getValuesFromFile method : " + e);
+		} catch (IllegalArgumentException e) {
+			logger.error(" IllegalArgumentException occured in getValuesFromFile method : " + e);
+		}
+		return valuesMap;
+	}
+}
