@@ -9,7 +9,7 @@ Section 2:
 
 Section 3 
 a)	Sonar lint / EclEmma scan Snapshot 
-	![SonarLint] (Not installed Sonar, will update project later with screenshot of sonarQube coverage)
+	![SonarLint] (https://github.com/prasoonrocks/PrasoonCode/blob/master/SonarLintSnapShot.JPG)
 b)	Final Output Snapshot 
 	![Output] (https://github.com/prasoonrocks/PrasoonCode/blob/master/FinalOutputSnapShot.JPG)
 c)	Junit Coverage Snapshot
