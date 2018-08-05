@@ -9,11 +9,11 @@ Section 2:
 
 Section 3 
 a)	Sonar lint / EclEmma scan Snapshot 
-	- Not installed Sonar, will update project later with screenshot of sonarQube coverage
+	![SonarLint] (Not installed Sonar, will update project later with screenshot of sonarQube coverage)
 b)	Final Output Snapshot 
-	-
+	![Output] (https://github.com/prasoonrocks/PrasoonCode/blob/master/FinalOutputSnapShot.JPG)
 c)	Junit Coverage Snapshot
-	-
+	![Junit] (https://github.com/prasoonrocks/PrasoonCode/blob/master/JUnitCoverageSnapShot.JPG)
 Note: (You can link directly to the raw version of an image from your image folder. Hence from section 1.1 if your GIT Link is : https://github.com/nescafe2018/intrvw_stind , then you can have the following text in your readme ![SonarLint] (https://github.com/nescafe2018/intrvw_stind /<Link of you image) )
 
 Section 4 
