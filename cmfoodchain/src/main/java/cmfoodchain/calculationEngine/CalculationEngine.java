@@ -3,7 +3,7 @@ package main.java.cmfoodchain.calculationengine;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -39,7 +39,7 @@ public class CalculationEngine {
 		// initialize
 		IOrderFileReader orderReader = null;
 		IOrderFileWriter orderWriter = null;
-		HashMap<String,Object> valuesMap = null;
+		Map<String,Object> valuesMap = null;
 		
 		// determine file type
 		String inputFileType = identifyFileTypeUsingFilesProbeContentType(this.inputFile);
@@ -47,17 +47,17 @@ public class CalculationEngine {
 		// calculate values
 		if("text/xml".equals(inputFileType)){
 			logger.info(" XML format detected ");
-			orderReader = new XMLOrderFileReader(inputFile);
-			valuesMap = (HashMap<String, Object>) orderReader.getValuesFromFile();
+			orderReader = OrderFileReaderFactory.createOrderFileReader("xml", inputFile);
+			valuesMap = orderReader.getValuesFromFile();
 		}
 		else{
 			logger.info(" JSON format detected ");
-			orderReader = new JSONOrderFileReader(inputFile);
-			valuesMap = (HashMap<String, Object>) orderReader.getValuesFromFile();
+			orderReader = OrderFileReaderFactory.createOrderFileReader("json", inputFile);
+			valuesMap = orderReader.getValuesFromFile();
 		}
 		
 		// Initialize writer
-		orderWriter = new JSONOrderFileWriter(valuesMap);
+		orderWriter = OrderFileWriterFactory.createOrderFileWriter("json", valuesMap);
 		
 		// write values to file
 		if(valuesMap.get("totalcollection") == valuesMap.get("totalOrdersCollection")){
